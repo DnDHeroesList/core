@@ -9,6 +9,13 @@ DEBUG = os.environ.get('DEBUG', False)
 
 ALLOWED_HOSTS = ['*']
 
+# Email
+ADMINS = [('admins', 'randomdicestudio@gmail.com')]
+EMAIL_HOST_USER = 'randomdicestudio@gmail.com'
+EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
 
 # Application definition
 INSTALLED_APPS = [
