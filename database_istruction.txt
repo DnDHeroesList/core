@@ -1,0 +1,13 @@
+PG
+
+create backup from herokuPG
+heroku pg:backups capture --app dndlisttest
+
+Download backup
+curl -o latest.dump `heroku pg:backups public-url b001 --app dndlisttest`
+
+Restore local copy from prod
+pg_restore --verbose --clean --no-acl --no-owner -h localhost -U postgres -d dndlisttest latest.dump
+
+Restore on production server
+heroku pg:backups restore b101 [DATABASE_URL] --app dndlisttest
