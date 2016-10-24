@@ -1,19 +1,20 @@
 import os
 import dj_database_url
+from library.superenv import Env
 
+
+env = Env(os.path.dirname(os.path.abspath(__file__)), '.env')
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = os.environ['SECRET_KEY']
-
-DEBUG = os.environ.get('DEBUG', False)
+SECRET_KEY = env.get('SECRET_KEY', '')
 
 ALLOWED_HOSTS = ['*']
 
 # Email
 ADMINS = [('admins', 'randomdicestudio@gmail.com')]
 EMAIL_HOST_USER = 'randomdicestudio@gmail.com'
-EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
+EMAIL_HOST_PASSWORD = env.get('EMAIL_HOST_PASSWORD', '')
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
@@ -62,7 +63,7 @@ WSGI_APPLICATION = 'main.wsgi.application'
 
 # Database
 DATABASES = {
-    'default': dj_database_url.parse(os.environ['DATABASE_URL'], conn_max_age=600)
+    'default': dj_database_url.parse(env.get('DATABASE_URL', ''), conn_max_age=600)
 }
 
 # Password validation
