@@ -1,4 +1,5 @@
 import os
+import sys
 import dj_database_url
 from library.superenv import Env
 
@@ -6,6 +7,7 @@ from library.superenv import Env
 env = Env(os.path.dirname(os.path.abspath(__file__)), '.env')
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(os.path.join(BASE_DIR, 'apps'))
 
 SECRET_KEY = env.get('SECRET_KEY', '')
 
