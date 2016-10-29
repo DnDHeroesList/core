@@ -5,7 +5,7 @@ from library.superenv import Env
 
 env = Env(os.path.dirname(os.path.abspath(__file__)), '.env')
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 SECRET_KEY = env.get('SECRET_KEY', '')
 
@@ -45,7 +45,7 @@ ROOT_URLCONF = 'main.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -93,7 +93,9 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = False
-
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static")
+]
 
 # Static files
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
