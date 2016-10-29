@@ -1,11 +1,13 @@
 import os
+import sys
 import dj_database_url
 from library.superenv import Env
 
 
 env = Env(os.path.dirname(os.path.abspath(__file__)), '.env')
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(os.path.join(BASE_DIR, 'apps'))
 
 SECRET_KEY = env.get('SECRET_KEY', '')
 
@@ -27,6 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'index'
 ]
 
 MIDDLEWARE = [
@@ -45,7 +48,7 @@ ROOT_URLCONF = 'main.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -93,7 +96,9 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = False
-
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static")
+]
 
 # Static files
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
