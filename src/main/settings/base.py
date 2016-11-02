@@ -14,6 +14,7 @@ SECRET_KEY = env.get('SECRET_KEY', '')
 ALLOWED_HOSTS = ['*']
 
 # Email
+EMAIL = 'randomdicestudio@gmail.com'
 ADMINS = [('admins', 'randomdicestudio@gmail.com')]
 EMAIL_HOST_USER = 'randomdicestudio@gmail.com'
 EMAIL_HOST_PASSWORD = env.get('EMAIL_HOST_PASSWORD', '')
@@ -29,7 +30,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'index'
+    'index',
+    'extend_admin'
 ]
 
 MIDDLEWARE = [

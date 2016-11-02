@@ -1,0 +1,48 @@
+{% extends "extend_admin_base.html" %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12 col-lg-6" style="padding-top: 15px;">
+            <div class="card">
+
+                <h3 class="card-header">Send invite code</h3>
+
+                <div class="card-block">
+                    <form class="form-group" action="{% url 'send_invite' %}" method="POST" style="margin: 0;">{% csrf_token %}
+                        <div class="row">
+                            <div class="col-xs">
+                                <div class="form-group">
+                                <input type="email" class="form-control" name="email" placeholder="Email">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs">
+                                <div class="text-xs-right">
+                                    <button type="submit" class="btn btn-primary">Send</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    {% if messages %}
+                        {% for message in messages %}
+                            {% if message.level_tag == 'success' %}
+                                <div class="alert alert-success" role="alert" style="margin-top: 16px; margin-bottom: 0;">
+                                    {{ message }}
+                                </div>
+                            {% elif message.level_tag == 'error' %}
+                                <div class="alert alert-danger" role="alert" style="margin-top: 16px; margin-bottom: 0;">
+                                    {{ message }}
+                                </div>
+                            {% endif %}
+
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
