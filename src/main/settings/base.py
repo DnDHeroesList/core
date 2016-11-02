@@ -1,14 +1,26 @@
 import os
+import sys
+import dj_database_url
+from library.superenv import Env
 
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+env = Env(os.path.dirname(os.path.abspath(__file__)), '.env')
 
-SECRET_KEY = os.environ['SECRET_KEY']
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(os.path.join(BASE_DIR, 'apps'))
 
-DEBUG = os.environ.get('DEBUG', False)
+SECRET_KEY = env.get('SECRET_KEY', '')
 
 ALLOWED_HOSTS = ['*']
 
+# Email
+EMAIL = 'randomdicestudio@gmail.com'
+ADMINS = [('admins', 'randomdicestudio@gmail.com')]
+EMAIL_HOST_USER = 'randomdicestudio@gmail.com'
+EMAIL_HOST_PASSWORD = env.get('EMAIL_HOST_PASSWORD', '')
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
 
 # Application definition
 INSTALLED_APPS = [
@@ -18,10 +30,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'index',
+    'extend_admin'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -35,7 +50,7 @@ ROOT_URLCONF = 'main.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -53,12 +68,8 @@ WSGI_APPLICATION = 'main.wsgi.application'
 
 # Database
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    'default': dj_database_url.parse(env.get('DATABASE_URL', ''), conn_max_age=600)
 }
-
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -87,7 +98,10 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = False
-
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static")
+]
 
 # Static files
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'

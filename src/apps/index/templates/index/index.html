@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}DnD World{% endblock %}
+
+{% block head %}
+    <style>
+    .vertical-center {
+        min-height: 90vh;
+        display: flex;
+        align-items: center;
+    }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row vertical-center">
+            <div class="col-xs-12">
+                <h1 class="display-3 text-xs-center">Привет, герой!</h1>
+                <p class="text-xs-center">Приключения вот вот начнутся.</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
